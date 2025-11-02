@@ -32,16 +32,16 @@ export class Joystick {
             const touchY = t.y;
 
             //Vector vom Zentrum zum Touchpunkt
-            const dx = touchX - this.x;
-            const dy = touchY - this.y;
+            const dx = touchX - x;
+            const dy = touchY - y;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
             //Limit für inneren Kreis
             const maxDist = outerRadius - innerRadius;
             if(dist > maxDist){
                 const ratio = maxDist / dist;
-                this.innerX = this.x + dx * ratio;
-                this.innerY = this.y + dy * ratio;
+                this.innerX = x + dx * ratio;
+                this.innerY = y + dy * ratio;
             } else {
                 this.innerX = touchX;
                 this.innerY = touchY;
@@ -52,8 +52,8 @@ export class Joystick {
             this.dy = dy / outerRadius;
         } else {
             //Zurücksetzen wenn nicht berührt
-            this.innerX = this.x;
-            this.innerY = this.y;
+            this.innerX = x;
+            this.innerY = y;
             this.dx = 0;
             this.dy = 0;
         }
@@ -79,8 +79,6 @@ export class Joystick {
         ctx.beginPath();
         ctx.arc(this.innerX, this.innerY, innerRadius, 0, End_Angle, true);
         ctx.fill();
-
-
     }
 
 }
