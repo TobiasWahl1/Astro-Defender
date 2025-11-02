@@ -19,7 +19,7 @@ window.onload = () => {
 
     const ship = new Spaceship(cnv.width / 2, cnv.height / 2, ctx);
     const asteroid = new Asteroid(cnv.width / 2, cnv.height / 2, ctx);
-    const joystick = new Joystick(jCnv.width / 2, jCnv.height / 2, jCtx);
+    const joystick = new Joystick(jCnv.width / 2, jCnv.height / 2, jCtx, jCnv);
     const shootButton = new ShootButton(sCnv.width /2, sCnv.height / 2, sCtx);
 
     function gameLoop(){
@@ -28,6 +28,7 @@ window.onload = () => {
         ship.draw();
         //asteroid.update();
         //asteroid.draw();
+        joystick.update();
         joystick.draw();
         shootButton.draw();
 
