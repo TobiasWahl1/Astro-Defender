@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: rgb(94, 87, 87);
+}
+
+canvas {
+  position: absolute;
+}
+
+/* Spielfeld */
+#cnv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid rgb(4, 0, 255);
+  background-color: black;
+}
+
+#joystick {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  background: transparent;
+}
+
+#fire {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  background: transparent;
+}
