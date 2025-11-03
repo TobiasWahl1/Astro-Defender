@@ -7,9 +7,9 @@ window.onload = () => {
 
     //InfoBox
     const infoBox = document.getElementById("infoBox");
+    
     //Button zum Starten
     const startButton = document.getElementById("startButton");
-    const countdown = document.getElementById("countdown");
 
     startButton.addEventListener("touchstart", startRound)
     startButton.addEventListener("click", startRound);
