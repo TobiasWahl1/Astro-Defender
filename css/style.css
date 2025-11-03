@@ -36,3 +36,23 @@ canvas {
   left: 5%;
   background: transparent;
 }
+
+#infoBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(30, 30, 30, 0.9);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+#infoBox button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}

@@ -1,17 +1,60 @@
+import { wrapPosition } from "./canvasUtils.mjs";
+
 export class Asteroid {
 
-    constructor(x, y, ctx){
-        this.x = x;
-        this.y = y;
+    constructor(canvasWidth, canvasHeight, ctx){
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
         this.ctx = ctx;
 
-        this.angle = 0;
-        this.size = 50;
+
+        //Random Größen
+        this.size = Math.random() * 40 +20; //Zwischen 20 und 60
+        
         this.color = "gray";
+
+        const side = Math.floor(Math.random()*4); // 0-3 für 4 Seiten
+        switch(side){
+            case 0: //top
+                this.x = Math.random() * canvasWidth;
+                this.y = -this.size;
+                break;
+            case 1: //bottom
+                this.x = Math.random() * canvasWidth;
+                this.y = canvasHeight + this.size;
+                break;
+            case 2: //left
+                this.x = -this.size;
+                this.y = Math.random() * canvasHeight;
+                break;
+            case 3: //right
+                this.x = canvasWidth + this.size;
+                this.y = Math.random() * canvasHeight;
+                break;
+        }
+
+        //Richtung Zentrum mit etwas Variation
+        const angleToCenter = Math.atan2(canvasHeight / 2 - this.y, canvasWidth / 2 - this.x);
+        const randomOffset = (Math.random() - 0.5) * 0.5;
+        const moveAngle = angleToCenter + randomOffset;
+        const speed = Math.random() * 1.5 + 0.5;
+        this.vx = Math.cos(moveAngle) * speed;
+        this.vy = Math.sin(moveAngle) * speed;
+
+        this.angle = Math.random() * Math.PI * 2; //Random Start Rotation
+        this.rotationSpeed = (Math.random() - 0.5) * 0.02; //Kleine Rotation
+
     }
 
     //Fürs Movement später
-    update(){}
+    update(){
+        this.x += this.vx;
+        this.y += this.vy;
+        this.angle += this.rotationSpeed;
+
+        //Wrap Position auf dem Canvas
+        wrapPosition(this, this.ctx.canvas, this.size);
+    }
 
     draw(){
         //destrcuturing

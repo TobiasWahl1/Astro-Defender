@@ -1,3 +1,4 @@
+import { wrapPosition } from "./canvasUtils.mjs";
 
 export class Spaceship {
 
@@ -51,6 +52,8 @@ export class Spaceship {
         //Bewegt Schiff
         this.x += Math.cos(this.angle) * this.speed;
         this.y += Math.sin(this.angle) * this.speed;
+
+        wrapPosition(this, this.ctx.canvas);
     }
 
     draw() {
