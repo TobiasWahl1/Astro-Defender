@@ -24,12 +24,16 @@ window.onload = () => {
 
     function gameLoop(){
         ctx.clearRect(0, 0, cnv.width, cnv.height);
-        ship.update();
+        
+        ship.update(joystick);
         ship.draw();
+        
         //asteroid.update();
         //asteroid.draw();
+        
         joystick.update();
         joystick.draw();
+        
         shootButton.draw();
 
         requestAnimationFrame(gameLoop);
