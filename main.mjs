@@ -5,6 +5,19 @@ import { ShootButton } from "./js/shootButton.mjs";
 
 window.onload = () => {
 
+    //GameOverDiv
+    const gameOverDiv = document.getElementById("gameOver");
+    const restartButton = document.getElementById("restartButton");
+
+    restartButton.addEventListener("touchstart", () => {
+        gameOverDiv.style.display = "none";
+        startRound();
+    });
+    restartButton.addEventListener("click", () => {
+        gameOverDiv.style.display = "none";
+        startRound();
+    });
+
     //InfoBox
     const infoBox = document.getElementById("infoBox");
     
@@ -18,9 +31,8 @@ window.onload = () => {
     let countdownActive = false; 
 
     function startRound(event){
-        event.preventDefault();
-        startButton.style.display = "none";
-        infoBox.style.display = "none";
+        if(event) event.preventDefault();
+        document.getElementById("infoBox").style.display = "none";
 
         startCd = 3; //Countdown von 3
         countdownActive = true;
@@ -36,6 +48,10 @@ window.onload = () => {
     }
     
     function startGame(){
+
+        let gameOver = false;
+        let gameRunning = true;
+
         //Spielfeld
         const cnv = document.getElementById("cnv");
         const ctx = cnv.getContext("2d");
@@ -49,6 +65,7 @@ window.onload = () => {
         const sCtx = sCnv.getContext("2d");
 
         const ship = new Spaceship(cnv.width / 2, cnv.height / 2, ctx);
+        ship.shields = 3;
         const joystick = new Joystick(jCnv.width / 2, jCnv.height / 2, jCtx, jCnv);
         const shootButton = new ShootButton(sCnv.width /2, sCnv.height / 2, sCtx);
 
@@ -61,7 +78,9 @@ window.onload = () => {
         function gameLoop(){
             ctx.clearRect(0, 0, cnv.width, cnv.height);
 
-            if (!countdownActive) {
+            if(!gameRunning) return;
+
+            if (!countdownActive && !gameOver) {
                 ship.update(joystick);
                 asteroids.forEach(ast => ast.update());
             }
@@ -82,6 +101,15 @@ window.onload = () => {
                 ctx.fillText(startCd, cnv.width / 2, cnv.height / 2);
                 ctx.restore();
             }
+
+            if (ship.shields <= 0) {
+                gameRunning = false;
+                gameOverDiv.style.display = "flex";
+                return; // stop updating this frame
+            }
+
+            if(gameOver) return;
+            
 
             for (let i = 0; i < asteroids.length; i++) {
                 const a1 = asteroids[i];
@@ -139,6 +167,12 @@ window.onload = () => {
                     ship.invincible = true;
                     setTimeout(() => ship.invincible = false, 1000); // 1s invulnerability
                     console.log(`Ship hit! Shields left: ${ship.shields}`);
+
+                    if(ship.shields <= 0){
+                        gameRunning = false;
+                        gameOverDiv.style.display = "flex";
+                        return;
+                    }
                 }
             }
         }

@@ -88,6 +88,6 @@ export class Asteroid {
     }
 
     get radius(){
-        return this.size / 2;
+        return this.size / 1.5;
     }
 }
