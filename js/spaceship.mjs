@@ -15,6 +15,8 @@ export class Spaceship {
         this.maxSpeed = 5; //Maximal Geschwindigkeit
         this.accel = 0.3; //Speed up
         this.decel = 0.15; //Speed down
+
+        this.shields = 3;
     }
 
     //Fürs Movement später
@@ -79,5 +81,9 @@ export class Spaceship {
         ctx.stroke();
 
         ctx.restore();
+    }
+
+    get radius(){
+        return this.size / 2;
     }
 }

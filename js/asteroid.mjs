@@ -86,4 +86,8 @@ export class Asteroid {
 
         ctx.restore();
     }
+
+    get radius(){
+        return this.size / 2;
+    }
 }
