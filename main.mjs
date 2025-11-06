@@ -3,6 +3,7 @@ import { Spaceship } from "./js/spaceship.mjs";
 import { Joystick } from "./js/joystick.mjs";
 import { ShootButton } from "./js/shootButton.mjs";
 import { Bullet } from "./js/bullet.mjs";
+import { polygonCircleCollision } from "./js/canvasUtils.mjs";
 
 window.onload = () => {
 
@@ -105,7 +106,8 @@ window.onload = () => {
                     const dx = bullet.x - ast.x;
                     const dy = bullet.y - ast.y;
                     const dist = Math.hypot(dx, dy);
-                    if(dist < ast.radius) {
+                    const points = ast.getVertices(); // you'll add this method to Asteroid
+                    if (polygonCircleCollision(points, bullet.x, bullet.y, bullet.radius)) {
                         bullet.active = false;
                         asteroids.splice(i, 1);
                         score++;

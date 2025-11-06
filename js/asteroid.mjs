@@ -90,4 +90,26 @@ export class Asteroid {
     get radius(){
         return this.size / 1.5;
     }
+
+    getVertices(){
+        const verts = [];
+        const h = this.size * Math.sqrt(3) / 2; // same as draw()
+        const local = [
+            { x: 0, y: -this.size },
+            { x: h, y: -this.size / 2 },
+            { x: h, y: this.size / 2 },
+            { x: 0, y: this.size },
+            { x: -h, y: this.size / 2 },
+            { x: -h, y: -this.size / 2 },
+        ];
+
+        const cos = Math.cos(this.angle);
+        const sin = Math.sin(this.angle);
+        for (const v of local) {
+            const rx = v.x * cos - v.y * sin;
+            const ry = v.x * sin + v.y * cos;
+            verts.push({ x: this.x + rx, y: this.y + ry });
+        }
+        return verts;
+    }
 }
