@@ -26,15 +26,10 @@ canvas {
   flex-shrink: 0;
 }
 
-/* Game field - responsive sizing */
+/* Game field */
 #cnv {
   border: 6px solid darkblue;
   background-color: black;
-  width: 800px;
-  height: 600px;
-  max-width: calc(100vw - 350px); /* leave room for controls + gap + padding */
-  max-height: calc(100vh - 40px); /* leave room for padding */
-  object-fit: contain;
 }
 
 /* Control canvases - fixed sizes */
