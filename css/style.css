@@ -1,6 +1,7 @@
 body {
   margin: 0;
   height: 100vh;
+  height: 100dvh; /* dynamic viewport height for mobile browsers */
   background: rgb(94, 87, 87);
   display: grid;
   place-items: center;
@@ -30,6 +31,7 @@ canvas {
 #cnv {
   border: 6px solid darkblue;
   background-color: black;
+  vertical-align: middle; /* prevent extra space below canvas on mobile */
 }
 
 /* Control canvases - fixed sizes */
