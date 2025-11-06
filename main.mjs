@@ -186,38 +186,43 @@ window.onload = () => {
                     }
                 }
 
-            // Spaceship-Asteroid Kollision
-            const dx = ship.x - a1.x;
-            const dy = ship.y - a1.y;
-            const dist = Math.hypot(dx, dy);
-            const minDist = ship.radius + a1.radius;
+                // Spaceship-Asteroid Kollision
+                const dx = ship.x - a1.x;
+                const dy = ship.y - a1.y;
+                const dist = Math.hypot(dx, dy);
+                const minDist = ship.radius + a1.radius;
 
-            if (dist < minDist) {
-                // Bounce ship away
-                const nx = dx / dist;
-                const ny = dy / dist;
+                if (dist < minDist) {
+                    // Bounce ship away
+                    const nx = dx / dist;
+                    const ny = dy / dist;
 
-                // Reflect ship velocity (approximation)
-                ship.x += nx * (minDist - dist);
-                ship.y += ny * (minDist - dist);
-                a1.vx = -a1.vx * 0.8;
-                a1.vy = -a1.vy * 0.8;
+                    // Reflect ship velocity (approximation)
+                    ship.x += nx * (minDist - dist);
+                    ship.y += ny * (minDist - dist);
+                    a1.vx = -a1.vx * 0.8;
+                    a1.vy = -a1.vy * 0.8;
 
-                // Damage the ship
-                if (!ship.invincible) {
-                    ship.shields--;
-                    ship.invincible = true;
-                    setTimeout(() => ship.invincible = false, 1000); // 1s invulnerability
-                    console.log(`Ship hit! Shields left: ${ship.shields}`);
+                    // Damage the ship
+                    if (!ship.invincible) {
+                        ship.shields--;
+                        ship.invincible = true;
+                        setTimeout(() => ship.invincible = false, 1000); // 1s invulnerability
+                        console.log(`Ship hit! Shields left: ${ship.shields}`);
 
-                    if(ship.shields <= 0){
-                        gameRunning = false;
-                        gameOverDiv.style.display = "flex";
-                        return;
+                        if(ship.shields <= 0){
+                            gameRunning = false;
+                            gameOverDiv.style.display = "flex";
+                            return;
+                        }
                     }
                 }
             }
-        }
+            //Respawn Asteroiden wenn zu wenige
+            if (asteroids.length < 8) {
+                const newAsteroid = new Asteroid(cnv.width, cnv.height, ctx);
+                asteroids.push(newAsteroid);
+            }
 
             requestAnimationFrame(gameLoop);
         }
