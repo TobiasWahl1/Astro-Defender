@@ -133,6 +133,9 @@ window.onload = () => {
                 bullets.push(new Bullet(tipX, tipY, ship.angle, ctx));
             }
 
+            // HUD (top center): Score and Shields
+            drawHUD();
+
             // Zeige Countdown Overlay
             if (countdownActive) {
                 ctx.save();
@@ -208,7 +211,7 @@ window.onload = () => {
                         ship.shields--;
                         ship.invincible = true;
                         setTimeout(() => ship.invincible = false, 1000); // 1s invulnerability
-                        console.log(`Ship hit! Shields left: ${ship.shields}`);
+                        console.log("Ship hit! Shields left: " + ship.shields);
 
                         if(ship.shields <= 0){
                             gameRunning = false;
@@ -225,6 +228,53 @@ window.onload = () => {
             }
 
             requestAnimationFrame(gameLoop);
+        }
+
+        // Draws two small rectangles at the top center showing Score and Shields
+        function drawHUD(){
+            const padding = 8;
+            const gap = 12;
+            const boxH = 30;
+            const textY = 22; // baseline inside box
+
+            const shieldsVal = Math.max(0, ship.shields|0);
+            const scoreText = "Score: " + score;
+            const shieldText = "Shields: " + shieldsVal;
+
+            // Blink red when shields are at 1
+            const critical = shieldsVal <= 1;
+            const blinkOn = critical && (Math.floor(performance.now() / 300) % 2 === 0);
+
+            ctx.save();
+            ctx.font = "bold 16px Arial";
+            ctx.textBaseline = "alphabetic";
+
+            const scoreW = Math.ceil(ctx.measureText(scoreText).width) + padding * 2;
+            const shieldW = Math.ceil(ctx.measureText(shieldText).width) + padding * 2;
+            const totalW = scoreW + gap + shieldW;
+            const startX = (cnv.width - totalW) / 2;
+
+            // Score box styles
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "rgba(255,255,255,0.8)";
+
+            // Score box
+            ctx.fillStyle = "rgba(0,0,0,0.6)";
+            ctx.fillRect(startX, 8, scoreW, boxH);
+            ctx.strokeRect(startX, 8, scoreW, boxH);
+
+            // Shields box (blink red if critical)
+            const shieldX = startX + scoreW + gap;
+            ctx.fillStyle = blinkOn ? "rgba(255,0,0,0.85)" : "rgba(0,0,0,0.6)";
+            ctx.strokeRect(shieldX, 8, shieldW, boxH);
+            ctx.fillRect(shieldX, 8, shieldW, boxH);
+
+            // Text
+            ctx.fillStyle = "white";
+            ctx.textAlign = "left";
+            ctx.fillText(scoreText, startX + padding, 8 + textY);
+            ctx.fillText(shieldText, shieldX + padding, 8 + textY);
+            ctx.restore();
         }
         gameLoop();
     }

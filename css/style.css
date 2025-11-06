@@ -1,44 +1,40 @@
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
-  overflow: hidden;
-  position: relative;
   background: rgb(94, 87, 87);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+
+#gameLayout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 canvas {
-  position: absolute;
+  display: block;
+  touch-action: none;
 }
 
-/* Spielfeld */
+
 #cnv {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 5px solid rgb(4, 0, 255);
+  border: 6px solid darkblue;
   background-color: black;
 }
 
-#joystick {
-  position: absolute;
-  bottom: 5%;
-  right: 5%;
+
+#joystick,
+#fire {
   background: transparent;
 }
 
-#fire {
-  position: absolute;
-  bottom: 5%;
-  left: 5%;
-  background: transparent;
-}
 
 #infoBox {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -48,6 +44,7 @@ canvas {
   border-radius: 12px;
   text-align: center;
   font-family: sans-serif;
+  z-index: 10;
 }
 
 #infoBox button {
@@ -59,9 +56,9 @@ canvas {
 
 #gameOver{
   display: none;
-  position: absolute;
-  top: 0%;
-  left: 0%;
+  position: fixed;
+  top: 0;
+  left: 0;
   width:100%; 
   height:100%; 
   background: rgba(0,0,0,0.8); 
@@ -70,4 +67,5 @@ canvas {
   align-items:center; 
   justify-content:center; 
   flex-direction: column;
+  z-index: 11;
 }

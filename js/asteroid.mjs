@@ -91,9 +91,10 @@ export class Asteroid {
         return this.size / 1.5;
     }
 
+    //Für bessere Kollisionserkennung
     getVertices(){
         const verts = [];
-        const h = this.size * Math.sqrt(3) / 2; // same as draw()
+        const h = this.size * Math.sqrt(3) / 2; 
         const local = [
             { x: 0, y: -this.size },
             { x: h, y: -this.size / 2 },
