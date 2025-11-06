@@ -8,6 +8,30 @@ export class ShootButton {
         this.width = 150;
         this.height = 90;
         this.radius = 20; //Für die Ecken
+
+        this.isPressed = false;
+        this.fireRate = 400; //ms per Schuss
+        this.lastShot = 0;
+
+        const canvas = ctx.canvas;
+
+        const startPress = () => {this.isPressed = true;};
+        const endPress = () => {this.isPressed = false;};
+
+        canvas.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            this.isPressed = true;
+        });
+        canvas.addEventListener("touchend", () => this.isPressed = false);
+    }
+
+    canShoot(){
+        const now = performance.now();
+        if(this.isPressed && now - this.lastShot > this.fireRate){
+            this.lastShot = now;
+            return true;
+        }
+        return false;
     }
 
     draw(){
@@ -21,7 +45,7 @@ export class ShootButton {
 
         //Button
         ctx.beginPath();
-        ctx.fillStyle = color;
+        ctx.fillStyle = this.isPressed ? "darkred" : color;
         ctx.moveTo(left + radius, top);
         ctx.lineTo(right - radius, top);
         ctx.arcTo(right, top, right, top + radius, radius);

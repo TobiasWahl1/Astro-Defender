@@ -2,6 +2,7 @@ import { Asteroid } from "./js/asteroid.mjs";
 import { Spaceship } from "./js/spaceship.mjs";
 import { Joystick } from "./js/joystick.mjs";
 import { ShootButton } from "./js/shootButton.mjs";
+import { Bullet } from "./js/bullet.mjs";
 
 window.onload = () => {
 
@@ -69,6 +70,9 @@ window.onload = () => {
         const joystick = new Joystick(jCnv.width / 2, jCnv.height / 2, jCtx, jCnv);
         const shootButton = new ShootButton(sCnv.width /2, sCnv.height / 2, sCtx);
 
+        const bullets = [];
+        let score = 0;
+
         //Spwan Mehrere Asteroiden
         const asteroids = [];
         for(let i = 0; i < 8; i++){
@@ -87,11 +91,47 @@ window.onload = () => {
 
             ship.draw();
             asteroids.forEach(ast => ast.draw());
+            bullets.forEach(b => b.draw());
+
+            //Update Bullets
+            for(const bullet of bullets){
+                bullet.update();
+            }
+
+            //Bullet-Asteroid Kollision
+            for(const bullet of bullets){
+                for(let i = asteroids.length - 1; i >= 0; i--){
+                    const ast = asteroids[i];
+                    const dx = bullet.x - ast.x;
+                    const dy = bullet.y - ast.y;
+                    const dist = Math.hypot(dx, dy);
+                    if(dist < ast.radius) {
+                        bullet.active = false;
+                        asteroids.splice(i, 1);
+                        score++;
+                        console.log("Score:", score);
+                        break;
+                    }
+                }
+            }
+
+            //Entferne Inaktive Bullets
+            for (let i = bullets.length - 1; i >= 0; i--) {
+                if (!bullets[i].active) bullets.splice(i, 1);
+            }
+
             joystick.update();
             joystick.draw();
             shootButton.draw();
 
-            // Draw countdown overlay if active
+            if(shootButton.canShoot()){
+                //Tip of Ship = position + forward Vector * ship.size
+                const tipX = ship.x + Math.cos(ship.angle) * ship.size;
+                const tipY = ship.y + Math.sin(ship.angle) * ship.size;
+                bullets.push(new Bullet(tipX, tipY, ship.angle, ctx));
+            }
+
+            // Zeige Countdown Overlay
             if (countdownActive) {
                 ctx.save();
                 ctx.fillStyle = "white";
@@ -105,7 +145,7 @@ window.onload = () => {
             if (ship.shields <= 0) {
                 gameRunning = false;
                 gameOverDiv.style.display = "flex";
-                return; // stop updating this frame
+                return;
             }
 
             if(gameOver) return;
@@ -114,7 +154,7 @@ window.onload = () => {
             for (let i = 0; i < asteroids.length; i++) {
                 const a1 = asteroids[i];
 
-                // --- Asteroid-Asteroid Collisions ---
+                // Asteroid-Asteroid Kollision
                 for (let j = i + 1; j < asteroids.length; j++) {
                     const a2 = asteroids[j];
                     const dx = a2.x - a1.x;
@@ -127,7 +167,7 @@ window.onload = () => {
                         const nx = dx / dist;
                         const ny = dy / dist;
 
-                        // Simple elastic bounce by swapping components
+                        // Elastic Bounce
                         const p = 2 * (a1.vx * nx + a1.vy * ny - a2.vx * nx - a2.vy * ny) / 2;
 
                         a1.vx -= p * nx;
@@ -144,7 +184,7 @@ window.onload = () => {
                     }
                 }
 
-            // --- Spaceship-Asteroid Collision ---
+            // Spaceship-Asteroid Kollision
             const dx = ship.x - a1.x;
             const dy = ship.y - a1.y;
             const dist = Math.hypot(dx, dy);
