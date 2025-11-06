@@ -35,9 +35,9 @@ canvas {
   background-color: black;
   vertical-align: middle;
   flex-shrink: 1;
-  max-width: calc(100vw - 340px); /* leave room for controls (150+150) + gaps + padding */
-  max-height: calc(100vh - 20px);
-  max-height: calc(100dvh - 20px);
+  max-width: calc(100vw - 360px); /* leave room for controls (150+150) + gaps (20) + padding (40) */
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
   width: auto;
   height: auto;
   object-fit: contain;
