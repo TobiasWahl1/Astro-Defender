@@ -54,22 +54,22 @@ window.onload = () => {
         let gameOver = false;
         let gameRunning = true;
 
-        //Spielfeld
+        // Spielfeld
         const cnv = document.getElementById("cnv");
         const ctx = cnv.getContext("2d");
 
-        //Joystick
+    const ship = new Spaceship(cnv.width / 2, cnv.height / 2, ctx);
+    ship.shields = 3;
+
+        // Separate control canvases beside the game field
         const jCnv = document.getElementById("joystick");
         const jCtx = jCnv.getContext("2d");
-
-        //Fire Button
         const sCnv = document.getElementById("fire");
         const sCtx = sCnv.getContext("2d");
 
-        const ship = new Spaceship(cnv.width / 2, cnv.height / 2, ctx);
-        ship.shields = 3;
-        const joystick = new Joystick(jCnv.width / 2, jCnv.height / 2, jCtx, jCnv);
-        const shootButton = new ShootButton(sCnv.width /2, sCnv.height / 2, sCtx);
+    // Center controls within their own canvases
+    const joystick = new Joystick(jCnv.width / 2, jCnv.height / 2, jCtx);
+    const shootButton = new ShootButton(sCnv.width / 2, sCnv.height / 2, sCtx);
 
         const bullets = [];
         let score = 0;
@@ -80,6 +80,8 @@ window.onload = () => {
             asteroids.push(new Asteroid(cnv.width, cnv.height, ctx));
         }
     
+        // No touch listeners on game canvas; each control canvas handles its own via TouchHandler
+
         function gameLoop(){
             ctx.clearRect(0, 0, cnv.width, cnv.height);
 
@@ -122,6 +124,7 @@ window.onload = () => {
                 if (!bullets[i].active) bullets.splice(i, 1);
             }
 
+            // Update and draw controls on their own canvases
             joystick.update();
             joystick.draw();
             shootButton.draw();
