@@ -1,11 +1,39 @@
 body {
   margin: 0;
-  height: 100vh;
+  height: 100dvh; /* Use dynamic viewport height for mobile */
   background: #000;
   display: grid;
   place-items: center;
   overflow: hidden;
   position: relative; 
+}
+
+/* Media query for small mobile devices in portrait */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+  #gameLayout {
+    flex-direction: column !important;
+    gap: 5px !important;
+    padding: 5px !important;
+    justify-content: space-between !important;
+  }
+  
+  #cnv {
+    max-width: 90vw !important;
+    max-height: 60vh !important;
+    order: 1;
+  }
+  
+  #fire {
+    order: 2;
+    width: 120px !important;
+    height: 80px !important;
+  }
+  
+  #joystick {
+    order: 3;
+    width: 120px !important;
+    height: 120px !important;
+  }
 }
 
 
