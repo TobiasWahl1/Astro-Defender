@@ -41,9 +41,14 @@ export class Spaceship {
             const diff = shortestAngleDiff(targetAngle, this.angle);
             this.angle += diff * 0.15; // Kleiner ist smoother
 
-            // Apply thrust in the direction ship is facing
-            this.vx += Math.cos(this.angle) * this.thrustPower;
-            this.vy += Math.sin(this.angle) * this.thrustPower;
+            // Calculate joystick distance (how far it's pushed)
+            const joystickDistance = Math.sqrt(joystick.dx * joystick.dx + joystick.dy * joystick.dy);
+            const normalizedDistance = Math.min(joystickDistance, 1); // Clamp to max 1
+
+            // Apply thrust based on joystick distance
+            const thrustMultiplier = normalizedDistance;
+            this.vx += Math.cos(this.angle) * this.thrustPower * thrustMultiplier;
+            this.vy += Math.sin(this.angle) * this.thrustPower * thrustMultiplier;
         }
         
         // Apply friction

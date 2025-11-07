@@ -73,9 +73,20 @@ window.onload = () => {
 
         //Spwan Mehrere Asteroiden
         const asteroids = [];
-        for(let i = 0; i < 8; i++){
+        let maxAsteroids = 8; // Start Schwirigkeit
+        for(let i = 0; i < maxAsteroids; i++){
             asteroids.push(new Asteroid(cnv.width, cnv.height, ctx));
         }
+
+        // Schwirigkeit wird erhöht alle 30s
+        const difficultyInterval = setInterval(() => {
+            if(!gameRunning) {
+                clearInterval(difficultyInterval);
+                return;
+            }
+            maxAsteroids++;
+            console.log("Difficulty increased! Max asteroids: " + maxAsteroids);
+        }, 30000); // 30s
     
         function gameLoop(){
             ctx.clearRect(0, 0, cnv.width, cnv.height);
@@ -216,7 +227,7 @@ window.onload = () => {
                 }
             }
             //Respawn Asteroiden wenn zu wenige
-            if (asteroids.length < 8) {
+            if (asteroids.length < maxAsteroids) {
                 const newAsteroid = new Asteroid(cnv.width, cnv.height, ctx);
                 asteroids.push(newAsteroid);
             }
