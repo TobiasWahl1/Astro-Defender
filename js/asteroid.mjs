@@ -66,7 +66,7 @@ export class Asteroid {
 
 
         //Hexagon zeichnen
-        // Die Konstante h ist der horizontale Abstand zur Kante (R * cos(30°))
+        //Die Konstante h ist der horizontale Abstand zur Kante (R * cos(30°))
         const h = size * Math.sqrt(3) / 2; 
         ctx.beginPath();
         ctx.moveTo(0, -size); 
@@ -88,12 +88,14 @@ export class Asteroid {
     }
 
     get radius(){
-        return this.size / 1.5;
+        // Hexagon's maximum radius from center to vertex
+        return this.size;
     }
 
+    //Für bessere Kollisionserkennung
     getVertices(){
         const verts = [];
-        const h = this.size * Math.sqrt(3) / 2; // same as draw()
+        const h = this.size * Math.sqrt(3) / 2; 
         const local = [
             { x: 0, y: -this.size },
             { x: h, y: -this.size / 2 },

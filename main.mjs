@@ -19,9 +19,6 @@ window.onload = () => {
         gameOverDiv.style.display = "none";
         startRound();
     });
-
-    //InfoBox
-    const infoBox = document.getElementById("infoBox");
     
     //Button zum Starten
     const startButton = document.getElementById("startButton");
@@ -106,7 +103,7 @@ window.onload = () => {
                     const dx = bullet.x - ast.x;
                     const dy = bullet.y - ast.y;
                     const dist = Math.hypot(dx, dy);
-                    const points = ast.getVertices(); // you'll add this method to Asteroid
+                    const points = ast.getVertices();
                     if (polygonCircleCollision(points, bullet.x, bullet.y, bullet.radius)) {
                         bullet.active = false;
                         asteroids.splice(i, 1);
@@ -132,6 +129,9 @@ window.onload = () => {
                 const tipY = ship.y + Math.sin(ship.angle) * ship.size;
                 bullets.push(new Bullet(tipX, tipY, ship.angle, ctx));
             }
+
+            // HUD (top center): Score and Shields
+            drawHUD();
 
             // Zeige Countdown Overlay
             if (countdownActive) {
@@ -187,28 +187,25 @@ window.onload = () => {
                 }
 
                 // Spaceship-Asteroid Kollision
-                const dx = ship.x - a1.x;
-                const dy = ship.y - a1.y;
-                const dist = Math.hypot(dx, dy);
-                const minDist = ship.radius + a1.radius;
+                const shipVertices = ship.getVertices();
+                
+                if (polygonCircleCollision(shipVertices, a1.x, a1.y, a1.radius)) {
+                    // Calculate bounce direction (from asteroid to ship)
+                    const dx = ship.x - a1.x;
+                    const dy = ship.y - a1.y;
+                    const angle = Math.atan2(dy, dx);
+                    
+                    // Set velocity directly away from asteroid
+                    const bounceForce = 12;
+                    ship.vx = Math.cos(angle) * bounceForce;
+                    ship.vy = Math.sin(angle) * bounceForce;
 
-                if (dist < minDist) {
-                    // Bounce ship away
-                    const nx = dx / dist;
-                    const ny = dy / dist;
-
-                    // Reflect ship velocity (approximation)
-                    ship.x += nx * (minDist - dist);
-                    ship.y += ny * (minDist - dist);
-                    a1.vx = -a1.vx * 0.8;
-                    a1.vy = -a1.vy * 0.8;
-
-                    // Damage the ship
+                    // Schaden Schiff
                     if (!ship.invincible) {
                         ship.shields--;
                         ship.invincible = true;
                         setTimeout(() => ship.invincible = false, 1000); // 1s invulnerability
-                        console.log(`Ship hit! Shields left: ${ship.shields}`);
+                        console.log("Ship hit! Shields left: " + ship.shields);
 
                         if(ship.shields <= 0){
                             gameRunning = false;
@@ -225,6 +222,53 @@ window.onload = () => {
             }
 
             requestAnimationFrame(gameLoop);
+        }
+
+        // Rechtecke für Punkte und Schielde
+        function drawHUD(){
+            const padding = 8;
+            const gap = 12;
+            const boxH = 30;
+            const textY = 22;
+
+            const shieldsVal = Math.max(0, ship.shields|0);
+            const scoreText = "Score: " + score;
+            const shieldText = "Shields: " + shieldsVal;
+
+            // Blinkt rot wen auf 1 Leben
+            const critical = shieldsVal <= 1;
+            const blinkOn = critical && (Math.floor(performance.now() / 300) % 2 === 0);
+
+            ctx.save();
+            ctx.font = "bold 16px Arial";
+            ctx.textBaseline = "alphabetic";
+
+            const scoreW = Math.ceil(ctx.measureText(scoreText).width) + padding * 2;
+            const shieldW = Math.ceil(ctx.measureText(shieldText).width) + padding * 2;
+            const totalW = scoreW + gap + shieldW;
+            const startX = (cnv.width - totalW) / 2;
+
+            // Punktebox styles
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "rgba(255,255,255,0.8)";
+
+            // Punktebox
+            ctx.fillStyle = "rgba(0,0,0,0.6)";
+            ctx.fillRect(startX, 8, scoreW, boxH);
+            ctx.strokeRect(startX, 8, scoreW, boxH);
+
+            // Schildebox blinkt rot
+            const shieldX = startX + scoreW + gap;
+            ctx.fillStyle = blinkOn ? "rgba(255,0,0,0.85)" : "rgba(0,0,0,0.6)";
+            ctx.strokeRect(shieldX, 8, shieldW, boxH);
+            ctx.fillRect(shieldX, 8, shieldW, boxH);
+
+            // Text
+            ctx.fillStyle = "white";
+            ctx.textAlign = "left";
+            ctx.fillText(scoreText, startX + padding, 8 + textY);
+            ctx.fillText(shieldText, shieldX + padding, 8 + textY);
+            ctx.restore();
         }
         gameLoop();
     }

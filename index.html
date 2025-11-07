@@ -3,16 +3,21 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <script type="module" src='main.mjs'></script>
-    <title>Astrododge</title>
+    <title>Astro Defender</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <canvas id="cnv" width="800" height="600"></canvas>
-    <canvas id="joystick" width="150" height="150"></canvas>
-    <canvas id="fire" width="150" height="90"></canvas>
+    <div id="gameLayout">
+        <canvas id="fire" width="150" height="100"></canvas>
+        <canvas id="cnv" width="800" height="600"></canvas>
+        <canvas id="joystick" width="150" height="150"></canvas>
+    </div>
     <div id="infoBox">
         <h2>How to Play</h2>
             <p>Use the joystick to move your spaceship. Your ship's nose points in the direction of movement.</p>
