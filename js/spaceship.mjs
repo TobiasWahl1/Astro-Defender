@@ -92,4 +92,35 @@ export class Spaceship {
     get radius(){
         return this.size / 1.5;
     }
+
+    // Return triangle vertices in world space for collision detection
+    getVertices(){
+        const {x, y, size, angle} = this;
+        
+        // Triangle points in local space (same as draw method)
+        // Rotated by angle + Math.PI / 2 to match drawing
+        const a = angle + Math.PI / 2;
+        const cos = Math.cos(a);
+        const sin = Math.sin(a);
+        
+        // Top vertex (nose)
+        const v1 = {
+            x: x + (0 * cos - (-size) * sin),
+            y: y + (0 * sin + (-size) * cos)
+        };
+        
+        // Bottom right vertex
+        const v2 = {
+            x: x + ((size / 2) * cos - (size / 2) * sin),
+            y: y + ((size / 2) * sin + (size / 2) * cos)
+        };
+        
+        // Bottom left vertex
+        const v3 = {
+            x: x + ((-size / 2) * cos - (size / 2) * sin),
+            y: y + ((-size / 2) * sin + (size / 2) * cos)
+        };
+        
+        return [v1, v2, v3];
+    }
 }

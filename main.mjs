@@ -187,20 +187,13 @@ window.onload = () => {
                 }
 
                 // Spaceship-Asteroid Kollision
-                const dx = ship.x - a1.x;
-                const dy = ship.y - a1.y;
-                const dist = Math.hypot(dx, dy);
-                const minDist = ship.radius + a1.radius;
-
-                if (dist < minDist) {
+                const shipVertices = ship.getVertices();
+                
+                if (polygonCircleCollision(shipVertices, a1.x, a1.y, a1.radius)) {
                     // Calculate bounce direction (from asteroid to ship)
+                    const dx = ship.x - a1.x;
+                    const dy = ship.y - a1.y;
                     const angle = Math.atan2(dy, dx);
-
-                    // Separate ship from asteroid
-                    const nx = dx / dist;
-                    const ny = dy / dist;
-                    ship.x += nx * (minDist - dist);
-                    ship.y += ny * (minDist - dist);
                     
                     // Set velocity directly away from asteroid
                     const bounceForce = 12;
