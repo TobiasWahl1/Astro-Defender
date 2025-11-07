@@ -11,10 +11,12 @@ export class Spaceship {
         this.size = 30;
         this.color = "blue";
 
-        this.speed = 0; //jetzige Geschwindigkeit
-        this.maxSpeed = 5; //Maximal Geschwindigkeit
-        this.accel = 0.3; //Speed up
-        this.decel = 0.15; //Speed down
+        this.vx = 0; // Velocity X component
+        this.vy = 0; // Velocity Y component
+        this.maxSpeed = 2; //Maximal Geschwindigkeit
+        this.thrustPower = 0.15; //Acceleration per frame
+        this.friction = 0.99; //Friction to slow down
+
 
         this.shields = 3;
     }
@@ -39,21 +41,25 @@ export class Spaceship {
             const diff = shortestAngleDiff(targetAngle, this.angle);
             this.angle += diff * 0.15; // Kleiner ist smoother
 
-            //Wie weit der Joystick bewegt ist
-            const distance = Math.sqrt(joystick.dx * joystick.dx + joystick.dy * joystick.dy);
-            const normalizedDistance = Math.min(distance, 1);
-            const targetSpeed = normalizedDistance * this.maxSpeed;
-
-            if(this.speed < targetSpeed) this.speed += this.accel;
-            else if(this.speed > targetSpeed) this.speed -= this.decel;
-            
-        } else {
-            //Langsames Abbremsen wenn Joystick nicht bewegt
-            this.speed *= 0,95;
+            // Apply thrust in the direction ship is facing
+            this.vx += Math.cos(this.angle) * this.thrustPower;
+            this.vy += Math.sin(this.angle) * this.thrustPower;
         }
-        //Bewegt Schiff
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed;
+        
+        // Apply friction
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+        
+        // Limit speed
+        const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        if(speed > this.maxSpeed){
+            this.vx = (this.vx / speed) * this.maxSpeed;
+            this.vy = (this.vy / speed) * this.maxSpeed;
+        }
+        
+        // Update position based on velocity
+        this.x += this.vx;
+        this.y += this.vy;
 
         wrapPosition(this, this.ctx.canvas);
     }

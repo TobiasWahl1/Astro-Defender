@@ -193,15 +193,19 @@ window.onload = () => {
                 const minDist = ship.radius + a1.radius;
 
                 if (dist < minDist) {
-                    // Bounce ship away
+                    // Calculate bounce direction (from asteroid to ship)
+                    const angle = Math.atan2(dy, dx);
+
+                    // Separate ship from asteroid
                     const nx = dx / dist;
                     const ny = dy / dist;
-
-                    // Reflect ship velocity (approximation)
                     ship.x += nx * (minDist - dist);
                     ship.y += ny * (minDist - dist);
-                    a1.vx = -a1.vx * 0.8;
-                    a1.vy = -a1.vy * 0.8;
+                    
+                    // Set velocity directly away from asteroid
+                    const bounceForce = 12;
+                    ship.vx = Math.cos(angle) * bounceForce;
+                    ship.vy = Math.sin(angle) * bounceForce;
 
                     // Schaden Schiff
                     if (!ship.invincible) {

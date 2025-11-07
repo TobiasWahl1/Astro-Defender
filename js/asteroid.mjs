@@ -88,7 +88,8 @@ export class Asteroid {
     }
 
     get radius(){
-        return this.size / 1.5;
+        // Hexagon's maximum radius from center to vertex
+        return this.size;
     }
 
     //Für bessere Kollisionserkennung

@@ -45,7 +45,7 @@ body::after {
     radial-gradient(#88baff 1px, transparent 1px) 12px 36px/80px 80px,
     radial-gradient(#ffffff 1px, transparent 1px) 36px 12px/96px 96px;
   background-color: #000;
-  animation: pulse 25s ease-in-out infinite; /* Pulsieren */
+  animation: pulse 10s ease-in-out infinite; /* Pulsieren */
   opacity: 0.35;
 }
 
