@@ -58,5 +58,11 @@ export class ShootButton {
         ctx.closePath();
         ctx.fill();
 
+        // Draw "FIRE" text
+        ctx.fillStyle = "white";
+        ctx.font = "bold 24px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("FIRE", x, y);
     }
 }
