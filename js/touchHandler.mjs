@@ -24,11 +24,14 @@ export class TouchHandler{
             const x = touch.clientX - rect.left;
             const y = touch.clientY - rect.top;
             
-            // Check ob Touch im Canvas ist
-            if(x >= 0 && x <= this.canvas.width && y >= 0 && y <= this.canvas.height){
+            // Check ob Touch im Canvas ist (use displayed rect dimensions, not internal canvas size)
+            if(x >= 0 && x <= rect.width && y >= 0 && y <= rect.height){
+                // Convert screen coordinates to canvas coordinates
+                const scaleX = this.canvas.width / rect.width;
+                const scaleY = this.canvas.height / rect.height;
                 this.touchId = touch.identifier;
-                this.x = x;
-                this.y = y;
+                this.x = x * scaleX;
+                this.y = y * scaleY;
                 this.active = true;
                 break;
             }
@@ -44,8 +47,13 @@ export class TouchHandler{
             const touch = event.changedTouches[i];
             if(touch.identifier === this.touchId){
                 const rect = this.canvas.getBoundingClientRect();
-                this.x = touch.clientX - rect.left;
-                this.y = touch.clientY - rect.top;
+                // Convert screen coordinates to canvas coordinates
+                const scaleX = this.canvas.width / rect.width;
+                const scaleY = this.canvas.height / rect.height;
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+                this.x = x * scaleX;
+                this.y = y * scaleY;
                 break;
             }
         }
