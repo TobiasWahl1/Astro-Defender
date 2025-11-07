@@ -1,12 +1,64 @@
 body {
   margin: 0;
   height: 100vh;
-  background: rgb(94, 87, 87);
+  background: #000;
   display: grid;
   place-items: center;
   overflow: hidden;
+  position: relative; 
 }
 
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0; /* Im Hintergrund*/
+  background:
+    radial-gradient(circle at 10% 20%, #ffffff 0 1px, transparent 2px),
+    radial-gradient(circle at 30% 80%, #ffffff 0 1px, transparent 2px),
+    radial-gradient(circle at 50% 50%, #d0e8ff 0 1px, transparent 2px),
+    radial-gradient(circle at 80% 30%, #ffffff 0 1px, transparent 2px),
+    radial-gradient(circle at 20% 60%, #bcd9ff 0 1px, transparent 2px),
+    radial-gradient(circle at 65% 10%, #ffffff 0 1px, transparent 2px),
+    radial-gradient(circle at 90% 70%, #ffffff 0 1px, transparent 2px),
+    radial-gradient(circle at 75% 85%, #d0e8ff 0 1px, transparent 2px),
+    radial-gradient(circle at 15% 85%, #ffffff 0 1px, transparent 2px),
+    radial-gradient(circle at 40% 15%, #ffffff 0 1px, transparent 2px);
+  background-color: #000;
+  mask: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.9), rgba(0,0,0,1));
+  animation: twinkle 15s linear infinite; /* Helligkeit ändern */
+  opacity: 0.85;
+}
+
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0; /* Im Hintergrund */
+  background:
+    radial-gradient(#ffffff 1px, transparent 1px) 0 0/48px 48px,
+    radial-gradient(#ffffff 1px, transparent 1px) 24px 24px/64px 64px,
+    radial-gradient(#88baff 1px, transparent 1px) 12px 36px/80px 80px,
+    radial-gradient(#ffffff 1px, transparent 1px) 36px 12px/96px 96px;
+  background-color: #000;
+  animation: pulse 25s ease-in-out infinite; /* Pulsieren */
+  opacity: 0.35;
+}
+
+@keyframes twinkle {
+  0%, 92%, 100% { opacity: 0.85; }
+  50% { opacity: 0.70; }
+  94% { opacity: 1; } /* brief bright spike */
+}
+
+@keyframes pulse {
+  0%, 96%, 100% { opacity: 0.35; }
+  94% { opacity: 0.55; } /* subtle brighten once per cycle */
+}
 
 #gameLayout {
   display: flex;
@@ -17,6 +69,8 @@ body {
   max-height: 100vh;
   padding: 10px;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1; /* Game Layout über Star Layout */
 }
 
 canvas {
@@ -25,18 +79,16 @@ canvas {
   flex-shrink: 0;
 }
 
-/* Game field - responsive sizing */
 #cnv {
   border: 6px solid darkblue;
   background-color: black;
   width: 800px;
   height: 600px;
-  max-width: calc(100vw - 350px); /* leave room for controls + gap + padding */
-  max-height: calc(100vh - 40px); /* leave room for padding */
+  max-width: calc(100vw - 350px); 
+  max-height: calc(100vh - 40px); 
   object-fit: contain;
 }
 
-/* Control canvases - fixed sizes */
 #joystick {
   width: 150px;
   height: 150px;
@@ -48,7 +100,6 @@ canvas {
   height: 100px;
   background: transparent;
 }
-
 
 #infoBox {
   position: fixed;

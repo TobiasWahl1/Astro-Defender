@@ -66,7 +66,7 @@ export class Asteroid {
 
 
         //Hexagon zeichnen
-        // Die Konstante h ist der horizontale Abstand zur Kante (R * cos(30°))
+        //Die Konstante h ist der horizontale Abstand zur Kante (R * cos(30°))
         const h = size * Math.sqrt(3) / 2; 
         ctx.beginPath();
         ctx.moveTo(0, -size); 

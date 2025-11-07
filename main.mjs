@@ -19,9 +19,6 @@ window.onload = () => {
         gameOverDiv.style.display = "none";
         startRound();
     });
-
-    //InfoBox
-    const infoBox = document.getElementById("infoBox");
     
     //Button zum Starten
     const startButton = document.getElementById("startButton");
@@ -106,7 +103,7 @@ window.onload = () => {
                     const dx = bullet.x - ast.x;
                     const dy = bullet.y - ast.y;
                     const dist = Math.hypot(dx, dy);
-                    const points = ast.getVertices(); // you'll add this method to Asteroid
+                    const points = ast.getVertices();
                     if (polygonCircleCollision(points, bullet.x, bullet.y, bullet.radius)) {
                         bullet.active = false;
                         asteroids.splice(i, 1);
@@ -206,7 +203,7 @@ window.onload = () => {
                     a1.vx = -a1.vx * 0.8;
                     a1.vy = -a1.vy * 0.8;
 
-                    // Damage the ship
+                    // Schaden Schiff
                     if (!ship.invincible) {
                         ship.shields--;
                         ship.invincible = true;
@@ -230,18 +227,18 @@ window.onload = () => {
             requestAnimationFrame(gameLoop);
         }
 
-        // Draws two small rectangles at the top center showing Score and Shields
+        // Rechtecke für Punkte und Schielde
         function drawHUD(){
             const padding = 8;
             const gap = 12;
             const boxH = 30;
-            const textY = 22; // baseline inside box
+            const textY = 22;
 
             const shieldsVal = Math.max(0, ship.shields|0);
             const scoreText = "Score: " + score;
             const shieldText = "Shields: " + shieldsVal;
 
-            // Blink red when shields are at 1
+            // Blinkt rot wen auf 1 Leben
             const critical = shieldsVal <= 1;
             const blinkOn = critical && (Math.floor(performance.now() / 300) % 2 === 0);
 
@@ -254,16 +251,16 @@ window.onload = () => {
             const totalW = scoreW + gap + shieldW;
             const startX = (cnv.width - totalW) / 2;
 
-            // Score box styles
+            // Punktebox styles
             ctx.lineWidth = 1;
             ctx.strokeStyle = "rgba(255,255,255,0.8)";
 
-            // Score box
+            // Punktebox
             ctx.fillStyle = "rgba(0,0,0,0.6)";
             ctx.fillRect(startX, 8, scoreW, boxH);
             ctx.strokeRect(startX, 8, scoreW, boxH);
 
-            // Shields box (blink red if critical)
+            // Schildebox blinkt rot
             const shieldX = startX + scoreW + gap;
             ctx.fillStyle = blinkOn ? "rgba(255,0,0,0.85)" : "rgba(0,0,0,0.6)";
             ctx.strokeRect(shieldX, 8, shieldW, boxH);
