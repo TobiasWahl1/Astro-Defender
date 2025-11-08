@@ -110,22 +110,19 @@ canvas {
 #cnv {
   border: 6px solid darkblue;
   background-color: black;
-  width: 800px;
-  height: 600px;
-  max-width: calc(100vw - 350px); 
-  max-height: calc(100vh - 40px); 
+  /* Remove fixed width/height - let JavaScript set responsive dimensions */
+  max-width: 90vw; 
+  max-height: 70vh; 
   object-fit: contain;
 }
 
 #joystick {
-  width: 150px;
-  height: 150px;
+  /* Size set dynamically by JavaScript */
   background: transparent;
 }
 
 #fire {
-  width: 150px;
-  height: 100px;
+  /* Size set dynamically by JavaScript */
   background: transparent;
 }
 

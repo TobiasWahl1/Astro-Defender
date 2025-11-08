@@ -5,15 +5,15 @@ export class Bullet {
         this.ctx = ctx;
         this.angle = angle;
 
-        this.speed = 10;
+        this.speed = 600; // pixels per second (was 10 px/frame * 60fps)
         this.lenght = 12;
         this.color = "red";
         this.active = true;
     }
 
-    update(){
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed;
+    update(dt = 1/60){
+        this.x += Math.cos(this.angle) * this.speed * dt;
+        this.y += Math.sin(this.angle) * this.speed * dt;
 
         //Wenn out of Bounds
         if(this.x < 0 || this.x > this.ctx.canvas.width || this.y < 0 || this.y > this.ctx.canvas.height){

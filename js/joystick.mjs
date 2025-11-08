@@ -8,8 +8,9 @@ export class Joystick {
         this.ctx = cxt;
         this.cnv = cnv;
 
-        this.outerRadius = 75;
-        this.innerRadius = 25;
+        // Make radii responsive to canvas size
+        this.outerRadius = Math.min(cnv.width, cnv.height) / 2 - 5;
+        this.innerRadius = this.outerRadius / 3;
         this.color = "gray"
 
         this.touch = new TouchHandler(this.cnv);

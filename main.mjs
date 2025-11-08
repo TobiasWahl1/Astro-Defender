@@ -3,7 +3,7 @@ import { Spaceship } from "./js/spaceship.mjs";
 import { Joystick } from "./js/joystick.mjs";
 import { ShootButton } from "./js/shootButton.mjs";
 import { Bullet } from "./js/bullet.mjs";
-import { polygonCircleCollision } from "./js/canvasUtils.mjs";
+import { polygonCircleCollision, Responsive } from "./js/canvasUtils.mjs";
 
 window.onload = () => {
 
@@ -51,17 +51,27 @@ window.onload = () => {
         let gameOver = false;
         let gameRunning = true;
 
-        //Spielfeld
+        //Spielfeld - set responsive dimensions
         const cnv = document.getElementById("cnv");
         const ctx = cnv.getContext("2d");
+        
+        // Apply responsive canvas size
+        const canvasSize = Responsive.calculateCanvasDimensions();
+        cnv.width = canvasSize.width;
+        cnv.height = canvasSize.height;
 
-        //Joystick
+        //Joystick - set responsive size
         const jCnv = document.getElementById("joystick");
         const jCtx = jCnv.getContext("2d");
+        const controlSizes = Responsive.calculateControlSize();
+        jCnv.width = controlSizes.joystickSize;
+        jCnv.height = controlSizes.joystickSize;
 
-        //Fire Button
+        //Fire Button - set responsive size
         const sCnv = document.getElementById("fire");
         const sCtx = sCnv.getContext("2d");
+        sCnv.width = controlSizes.fireButtonWidth;
+        sCnv.height = controlSizes.fireButtonHeight;
 
         const ship = new Spaceship(cnv.width / 2, cnv.height / 2, ctx);
         ship.shields = 3;
@@ -71,9 +81,9 @@ window.onload = () => {
         const bullets = [];
         let score = 0;
 
-        //Spwan Mehrere Asteroiden
+        //Spawn Mehrere Asteroiden - use responsive count
         const asteroids = [];
-        let maxAsteroids = 8; // Start Schwirigkeit
+        let maxAsteroids = Responsive.calculateMaxAsteroids(); // Responsive asteroid count
         for(let i = 0; i < maxAsteroids; i++){
             asteroids.push(new Asteroid(cnv.width, cnv.height, ctx));
         }

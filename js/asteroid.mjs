@@ -1,4 +1,4 @@
-import { wrapPosition } from "./canvasUtils.mjs";
+import { wrapPosition, Responsive } from "./canvasUtils.mjs";
 
 export class Asteroid {
 
@@ -8,8 +8,9 @@ export class Asteroid {
         this.ctx = ctx;
 
 
-        //Random Größen
-        this.size = Math.random() * 40 +20; //Zwischen 20 und 60
+        //Random Größen - responsive to screen size
+        const baseSize = Math.random() * 40 + 20; //Zwischen 20 und 60
+        this.size = Responsive.calculateObjectSize(baseSize); 
         
         this.color = "gray";
 

@@ -5,9 +5,10 @@ export class ShootButton {
         this.ctx = ctx;
 
         this.color = "red";
-        this.width = 150;
-        this.height = 90;
-        this.radius = 20; //Für die Ecken
+        // Make button size responsive to canvas size
+        this.width = ctx.canvas.width * 0.9;
+        this.height = ctx.canvas.height * 0.85;
+        this.radius = Math.min(this.width, this.height) * 0.15; //Für die Ecken
 
         this.isPressed = false;
         this.fireRate = 400; //ms per Schuss

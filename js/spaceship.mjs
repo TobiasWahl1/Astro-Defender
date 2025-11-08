@@ -1,4 +1,4 @@
-import { wrapPosition } from "./canvasUtils.mjs";
+import { wrapPosition, Responsive } from "./canvasUtils.mjs";
 
 export class Spaceship {
 
@@ -8,7 +8,7 @@ export class Spaceship {
         this.ctx = ctx;
 
         this.angle = 0;
-        this.size = 30;
+        this.size = Responsive.calculateObjectSize(30); // Responsive ship size
         this.color = "blue";
 
         this.vx = 0; // Velocity X component
