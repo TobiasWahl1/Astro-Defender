@@ -7,6 +7,23 @@ import { polygonCircleCollision, Responsive } from "./js/canvasUtils.mjs";
 
 window.onload = () => {
 
+    // Initialize canvas sizes ONCE on page load (before any game starts)
+    const cnv = document.getElementById("cnv");
+    const jCnv = document.getElementById("joystick");
+    const sCnv = document.getElementById("fire");
+    
+    // Apply responsive canvas size - only happens once on page load
+    const canvasSize = Responsive.calculateCanvasDimensions();
+    cnv.width = canvasSize.width;
+    cnv.height = canvasSize.height;
+    
+    // Set control sizes - only happens once on page load
+    const controlSizes = Responsive.calculateControlSize();
+    jCnv.width = controlSizes.joystickSize;
+    jCnv.height = controlSizes.joystickSize;
+    sCnv.width = controlSizes.fireButtonWidth;
+    sCnv.height = controlSizes.fireButtonHeight;
+
     //GameOverDiv
     const gameOverDiv = document.getElementById("gameOver");
     const restartButton = document.getElementById("restartButton");
@@ -51,27 +68,10 @@ window.onload = () => {
         let gameOver = false;
         let gameRunning = true;
 
-        //Spielfeld - set responsive dimensions
-        const cnv = document.getElementById("cnv");
+        // Get contexts (canvas sizes already set on page load)
         const ctx = cnv.getContext("2d");
-        
-        // Apply responsive canvas size
-        const canvasSize = Responsive.calculateCanvasDimensions();
-        cnv.width = canvasSize.width;
-        cnv.height = canvasSize.height;
-
-        //Joystick - set responsive size
-        const jCnv = document.getElementById("joystick");
         const jCtx = jCnv.getContext("2d");
-        const controlSizes = Responsive.calculateControlSize();
-        jCnv.width = controlSizes.joystickSize;
-        jCnv.height = controlSizes.joystickSize;
-
-        //Fire Button - set responsive size
-        const sCnv = document.getElementById("fire");
         const sCtx = sCnv.getContext("2d");
-        sCnv.width = controlSizes.fireButtonWidth;
-        sCnv.height = controlSizes.fireButtonHeight;
 
         const ship = new Spaceship(cnv.width / 2, cnv.height / 2, ctx);
         ship.shields = 3;
