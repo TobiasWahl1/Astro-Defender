@@ -59,7 +59,7 @@ export const Responsive = {
         
         // Scale object size based on screen (but keep it reasonable)
         const sizeFactor = smallestDimension / 800;
-        return Math.max(baseSize * sizeFactor, baseSize * 0.6); // Min 60% of base size
+        return Math.max(baseSize * sizeFactor, baseSize * 0.6); // Min 60%
     },
 
     calculateControlSize() {

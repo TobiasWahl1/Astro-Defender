@@ -24,6 +24,34 @@ window.onload = () => {
     sCnv.width = controlSizes.fireButtonWidth;
     sCnv.height = controlSizes.fireButtonHeight;
 
+    // Fullscreen button functionality
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
+    
+    fullscreenBtn.addEventListener("click", () => {
+        if (!document.fullscreenElement) {
+            // Enter fullscreen
+            document.documentElement.requestFullscreen().catch(err => {
+                console.log("Fullscreen error:", err);
+            });
+        } else {
+            // Exit fullscreen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    });
+
+    // Update button icon based on fullscreen state
+    document.addEventListener("fullscreenchange", () => {
+        if (document.fullscreenElement) {
+            fullscreenBtn.textContent = "⛶"; // Exit fullscreen icon
+            fullscreenBtn.title = "Exit Fullscreen";
+        } else {
+            fullscreenBtn.textContent = "⛶"; // Enter fullscreen icon
+            fullscreenBtn.title = "Enter Fullscreen";
+        }
+    });
+
     //GameOverDiv
     const gameOverDiv = document.getElementById("gameOver");
     const restartButton = document.getElementById("restartButton");

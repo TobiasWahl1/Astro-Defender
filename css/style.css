@@ -8,6 +8,33 @@ body {
   position: relative; 
 }
 
+#fullscreenBtn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  background: rgba(30, 30, 30, 0.8);
+  color: white;
+  border: 2px solid #a855f7;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+}
+
+#fullscreenBtn:hover {
+  background: rgba(168, 85, 247, 0.3);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+  transform: scale(1.05);
+}
+
+#fullscreenBtn:active {
+  transform: scale(0.95);
+}
+
 /* Media query for small mobile devices in portrait */
 @media screen and (max-width: 768px) and (orientation: portrait) {
   #gameLayout {
