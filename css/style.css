@@ -71,27 +71,42 @@ body {
 @media screen and (max-width: 768px) and (orientation: portrait) {
   #gameLayout {
     flex-direction: column !important;
-    gap: 5px !important;
+    gap: 10px !important;
     padding: 5px !important;
-    justify-content: space-between !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
   
   #cnv {
-    max-width: 90vw !important;
-    max-height: 60vh !important;
+    max-width: 95vw !important;
+    max-height: 55vh !important;
     order: 1;
+  }
+  
+  /* Container for controls side-by-side */
+  #fire, #joystick {
+    width: 120px !important;
+    height: 120px !important;
   }
   
   #fire {
     order: 2;
-    width: 120px !important;
-    height: 80px !important;
   }
   
   #joystick {
     order: 3;
-    width: 120px !important;
-    height: 120px !important;
+  }
+  
+  /* Wrapper approach - we need to style gameLayout to allow row for controls */
+  body #gameLayout {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+  }
+  
+  #cnv {
+    flex-basis: 100% !important;
   }
 }
 
