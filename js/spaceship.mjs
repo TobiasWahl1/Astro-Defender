@@ -11,11 +11,11 @@ export class Spaceship {
         this.size = Responsive.calculateObjectSize(30); // Responsive ship size
         this.color = "blue";
 
-        this.vx = 0; // Velocity X component
-        this.vy = 0; // Velocity Y component
+        this.vx = 0; // Velocity X 
+        this.vy = 0; // Velocity Y 
         this.maxSpeed = 2; //Maximal Geschwindigkeit
-        this.thrustPower = 0.15; //Acceleration per frame
-        this.friction = 0.99; //Friction to slow down
+        this.thrustPower = 0.15; //Beschleunigung pro Frame
+        this.friction = 0.99; //FFriction
 
 
         this.shields = 3;
@@ -41,28 +41,28 @@ export class Spaceship {
             const diff = shortestAngleDiff(targetAngle, this.angle);
             this.angle += diff * 0.15; // Kleiner ist smoother
 
-            // Calculate joystick distance (how far it's pushed)
+            // Joystick Bewegung (wie weit bewegt)
             const joystickDistance = Math.sqrt(joystick.dx * joystick.dx + joystick.dy * joystick.dy);
             const normalizedDistance = Math.min(joystickDistance, 1); // Clamp to max 1
 
-            // Apply thrust based on joystick distance
+            // Schub basierend auf Joaystick distanz
             const thrustMultiplier = normalizedDistance;
             this.vx += Math.cos(this.angle) * this.thrustPower * thrustMultiplier;
             this.vy += Math.sin(this.angle) * this.thrustPower * thrustMultiplier;
         }
         
-        // Apply friction
+        // Friction
         this.vx *= this.friction;
         this.vy *= this.friction;
         
-        // Limit speed
+        // Limit geschwindigkeit
         const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
         if(speed > this.maxSpeed){
             this.vx = (this.vx / speed) * this.maxSpeed;
             this.vy = (this.vy / speed) * this.maxSpeed;
         }
         
-        // Update position based on velocity
+        // Update Position nach Velocity
         this.x += this.vx;
         this.y += this.vy;
 
@@ -98,7 +98,7 @@ export class Spaceship {
         return this.size / 1.5;
     }
 
-    // Return triangle vertices in world space for collision detection
+    // Für bessere Kollisionserkennung
     getVertices(){
         const {x, y, size, angle} = this;
         
@@ -108,19 +108,19 @@ export class Spaceship {
         const cos = Math.cos(a);
         const sin = Math.sin(a);
         
-        // Top vertex (nose)
+        // Top Vertex
         const v1 = {
             x: x + (0 * cos - (-size) * sin),
             y: y + (0 * sin + (-size) * cos)
         };
         
-        // Bottom right vertex
+        // Uneten rechts Vertex
         const v2 = {
             x: x + ((size / 2) * cos - (size / 2) * sin),
             y: y + ((size / 2) * sin + (size / 2) * cos)
         };
         
-        // Bottom left vertex
+        // Unten Links Vertex
         const v3 = {
             x: x + ((-size / 2) * cos - (size / 2) * sin),
             y: y + ((-size / 2) * sin + (size / 2) * cos)

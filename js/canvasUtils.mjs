@@ -57,7 +57,7 @@ export const Responsive = {
         const { width, height } = this.getScreenDimensions();
         const smallestDimension = Math.min(width, height);
         
-        // Scale object size based on screen (but keep it reasonable)
+        // Objekte Anpassen nach Bildschirmgröße
         const sizeFactor = smallestDimension / 800;
         return Math.max(baseSize * sizeFactor, baseSize * 0.6); // Min 60%
     },
@@ -84,6 +84,7 @@ export const Responsive = {
         }
     },
 
+    //Asteroiden nach Gerätetyp
     calculateMaxAsteroids() {
         const { width } = this.getScreenDimensions();
         if (width < 768) return 5;        // mobile - fewer asteroids

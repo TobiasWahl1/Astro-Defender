@@ -4,7 +4,7 @@ export class TouchHandler{
         this.active = false;
         this.x = 0;
         this.y = 0;
-        this.touchId = null; // Track specific touch identifier
+        this.touchId = null; // Track spezifschen Touchpunkt
 
         this.canvas.addEventListener("touchstart", this.start.bind(this), {passive: false});
         this.canvas.addEventListener("touchmove", this.move.bind(this), {passive: false});
@@ -14,7 +14,7 @@ export class TouchHandler{
 
     start(event){
         event.preventDefault();
-        // Only capture if we don't already have a touch
+        // Nur einen Touchpunkt verfolgen
         if(this.touchId !== null) return;
 
         // Finde ersten Touchpunkt
@@ -24,7 +24,7 @@ export class TouchHandler{
             const x = touch.clientX - rect.left;
             const y = touch.clientY - rect.top;
             
-            // Check ob Touch im Canvas ist (use displayed rect dimensions, not internal canvas size)
+            // Check ob Touch im Canvas ist (Benutze Dosplay rect Dimensionen, nicht interne Canvas größe)
             if(x >= 0 && x <= rect.width && y >= 0 && y <= rect.height){
                 // Convert screen coordinates to canvas coordinates
                 const scaleX = this.canvas.width / rect.width;
@@ -47,7 +47,7 @@ export class TouchHandler{
             const touch = event.changedTouches[i];
             if(touch.identifier === this.touchId){
                 const rect = this.canvas.getBoundingClientRect();
-                // Convert screen coordinates to canvas coordinates
+                // Screen Koordinaten zu Canvas Koordinaten
                 const scaleX = this.canvas.width / rect.width;
                 const scaleY = this.canvas.height / rect.height;
                 const x = touch.clientX - rect.left;

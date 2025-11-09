@@ -41,7 +41,7 @@ window.onload = () => {
         }
     });
 
-    // Update button icon based on fullscreen state
+    // Update Button Symbol on Fullscreen Change
     document.addEventListener("fullscreenchange", () => {
         if (document.fullscreenElement) {
             fullscreenBtn.textContent = "⛶"; // Exit fullscreen icon
@@ -129,7 +129,7 @@ window.onload = () => {
         const bullets = [];
         let score = 0;
 
-        //Spawn Mehrere Asteroiden - use responsive count
+        //Spawn Mehrere Asteroiden
         const asteroids = [];
         let maxAsteroids = Responsive.calculateMaxAsteroids(); // Responsive asteroid count
         for(let i = 0; i < maxAsteroids; i++){
@@ -193,7 +193,7 @@ window.onload = () => {
             shootButton.draw();
 
             if(shootButton.canShoot()){
-                //Tip of Ship = position + forward Vector * ship.size
+                //Spitze Schiff = position + forward Vector * ship.size
                 const tipX = ship.x + Math.cos(ship.angle) * ship.size;
                 const tipY = ship.y + Math.sin(ship.angle) * ship.size;
                 bullets.push(new Bullet(tipX, tipY, ship.angle, ctx));

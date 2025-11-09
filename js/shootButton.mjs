@@ -5,7 +5,6 @@ export class ShootButton {
         this.ctx = ctx;
 
         this.color = "red";
-        // Make button size responsive to canvas size
         this.width = ctx.canvas.width * 0.9;
         this.height = ctx.canvas.height * 0.85;
         this.radius = Math.min(this.width, this.height) * 0.15; //Für die Ecken
@@ -59,7 +58,7 @@ export class ShootButton {
         ctx.closePath();
         ctx.fill();
 
-        // Draw "FIRE" text
+        // "Fire"
         ctx.fillStyle = "white";
         ctx.font = "bold 24px Arial";
         ctx.textAlign = "center";

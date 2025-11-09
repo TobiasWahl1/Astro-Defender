@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  height: 100dvh; /* Use dynamic viewport height for mobile */
+  height: 100dvh; /* Benutze dynamische Viewport-Höhe für Mobilgeräte */
   background: #000;
   display: grid;
   place-items: center;
@@ -146,12 +146,12 @@ body::after {
 @keyframes twinkle {
   0%, 92%, 100% { opacity: 0.85; }
   50% { opacity: 0.70; }
-  94% { opacity: 1; } /* brief bright spike */
+  94% { opacity: 1; } /* kurz aufhellen */
 }
 
 @keyframes pulse {
   0%, 96%, 100% { opacity: 0.35; }
-  94% { opacity: 0.55; } /* subtle brighten once per cycle */
+  94% { opacity: 0.55; } /* kurz heller */
 }
 
 #gameLayout {
@@ -176,7 +176,6 @@ canvas {
 #cnv {
   border: 6px solid darkblue;
   background-color: black;
-  /* Remove fixed width/height - let JavaScript set responsive dimensions */
   max-width: 90vw; 
   max-height: 70vh; 
   object-fit: contain;
