@@ -11,6 +11,10 @@
 
 <body>
     <button id="fullscreenBtn" title="Toggle Fullscreen">⛶</button>
+    <div id="highscoreBox">
+        <div class="highscore-title">🏆 HIGH SCORE</div>
+        <div id="highscoreValue">0</div>
+    </div>
     <div id="gameLayout">
         <canvas id="fire"></canvas>
         <canvas id="cnv"></canvas>
@@ -25,8 +29,18 @@
         <button id="startButton">Start Game</button>
     </div>
     <div id="gameOver">
-        <p>Game Over</p>
-        <button id="restartButton">Restart</button>
+        <div class="gameOverContent">
+            <h1 class="gameOverTitle">GAME OVER</h1>
+            <div class="scoreDisplay">
+                <div class="finalScoreLabel">Your Score</div>
+                <div id="finalScore" class="finalScoreValue">0</div>
+            </div>
+            <div id="newHighscoreMessage" class="newHighscore">NEW HIGH SCORE!</div>
+            <button id="restartButton" class="restartBtn">
+                <span class="btnIcon">🚀</span>
+                <span class="btnText">Play Again</span>
+            </button>
+        </div>
     </div>
 </body>
 

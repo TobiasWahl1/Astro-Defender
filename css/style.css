@@ -35,6 +35,38 @@ body {
   transform: scale(0.95);
 }
 
+#highscoreBox {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+  background: rgba(30, 30, 30, 0.85);
+  color: white;
+  border: 2px solid #fbbf24;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+  min-width: 120px;
+}
+
+.highscore-title {
+  font-size: 12px;
+  font-weight: bold;
+  color: #fbbf24;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+#highscoreValue {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.8);
+}
+
 /* Media query for small mobile devices in portrait */
 @media screen and (max-width: 768px) and (orientation: portrait) {
   #gameLayout {
@@ -195,13 +227,156 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width:100%; 
-  height:100%; 
-  background: rgba(0,0,0,0.8); 
-  color:white; 
-  font-size: 48px;  
-  align-items:center; 
-  justify-content:center; 
+  width: 100%; 
+  height: 100%; 
+  background: rgba(0, 0, 0, 0.95); 
+  color: white;
+  align-items: center; 
+  justify-content: center; 
   flex-direction: column;
   z-index: 11;
+  backdrop-filter: blur(8px);
+}
+
+.gameOverContent {
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(20, 20, 40, 0.95));
+  border: 3px solid #ef4444;
+  border-radius: 20px;
+  padding: 40px 60px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.6), 0 0 80px rgba(239, 68, 68, 0.3);
+  animation: gameOverPulse 2s ease-in-out infinite;
+  max-width: 90vw;
+}
+
+@keyframes gameOverPulse {
+  0%, 100% { 
+    box-shadow: 0 0 40px rgba(239, 68, 68, 0.6), 0 0 80px rgba(239, 68, 68, 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 50px rgba(239, 68, 68, 0.8), 0 0 100px rgba(239, 68, 68, 0.4);
+  }
+}
+
+.gameOverTitle {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ef4444;
+  margin: 0 0 30px 0;
+  text-shadow: 0 0 20px rgba(239, 68, 68, 0.8), 0 0 40px rgba(239, 68, 68, 0.5);
+  letter-spacing: 4px;
+  font-family: 'Arial Black', sans-serif;
+}
+
+.scoreDisplay {
+  margin: 30px 0;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  border: 2px solid rgba(168, 85, 247, 0.5);
+}
+
+.finalScoreLabel {
+  font-size: 16px;
+  color: #a855f7;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.finalScoreValue {
+  font-size: 56px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
+}
+
+.newHighscore {
+  display: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fbbf24;
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(251, 191, 36, 0.1);
+  border: 2px solid #fbbf24;
+  border-radius: 10px;
+  animation: highscoreBlink 1s ease-in-out infinite;
+}
+
+@keyframes highscoreBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.restartBtn {
+  margin-top: 30px;
+  padding: 15px 40px;
+  font-size: 20px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #a855f7, #8b5cf6);
+  color: white;
+  border: 3px solid #7c3aed;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Arial', sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.restartBtn:hover {
+  background: linear-gradient(135deg, #9333ea, #7c3aed);
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+}
+
+.restartBtn:active {
+  transform: scale(0.98);
+}
+
+.btnIcon {
+  font-size: 24px;
+}
+
+.btnText {
+  letter-spacing: 1px;
+}
+
+/* Responsive adjustments for mobile */
+@media screen and (max-width: 768px) {
+  .gameOverContent {
+    padding: 30px 40px;
+  }
+  
+  .gameOverTitle {
+    font-size: 36px;
+  }
+  
+  .finalScoreValue {
+    font-size: 42px;
+  }
+  
+  .restartBtn {
+    padding: 12px 30px;
+    font-size: 18px;
+  }
+  
+  #highscoreBox {
+    padding: 8px 15px;
+    min-width: 100px;
+  }
+  
+  .highscore-title {
+    font-size: 10px;
+  }
+  
+  #highscoreValue {
+    font-size: 22px;
+  }
 }

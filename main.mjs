@@ -52,6 +52,26 @@ window.onload = () => {
         }
     });
 
+    // Highscore management
+    let highscore = localStorage.getItem('astroDefenderHighscore') || 0;
+    highscore = parseInt(highscore);
+    document.getElementById('highscoreValue').textContent = highscore;
+
+    function updateHighscore(score) {
+        const highscoreDisplay = document.getElementById('highscoreValue');
+        const newHighscoreMsg = document.getElementById('newHighscoreMessage');
+        
+        if (score > highscore) {
+            highscore = score;
+            localStorage.setItem('astroDefenderHighscore', highscore);
+            highscoreDisplay.textContent = highscore;
+            newHighscoreMsg.style.display = 'block';
+            return true;
+        }
+        newHighscoreMsg.style.display = 'none';
+        return false;
+    }
+
     //GameOverDiv
     const gameOverDiv = document.getElementById("gameOver");
     const restartButton = document.getElementById("restartButton");
@@ -195,6 +215,10 @@ window.onload = () => {
 
             if (ship.shields <= 0) {
                 gameRunning = false;
+                // Update final score display
+                document.getElementById('finalScore').textContent = score;
+                // Check for new highscore
+                updateHighscore(score);
                 gameOverDiv.style.display = "flex";
                 return;
             }
@@ -258,6 +282,10 @@ window.onload = () => {
 
                         if(ship.shields <= 0){
                             gameRunning = false;
+                            // Update final score display
+                            document.getElementById('finalScore').textContent = score;
+                            // Check for new highscore
+                            updateHighscore(score);
                             gameOverDiv.style.display = "flex";
                             return;
                         }
