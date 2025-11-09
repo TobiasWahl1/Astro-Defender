@@ -70,43 +70,35 @@ body {
 /* Media query for small mobile devices in portrait */
 @media screen and (max-width: 768px) and (orientation: portrait) {
   #gameLayout {
-    flex-direction: column !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    flex-direction: row !important;
     gap: 10px !important;
-    padding: 5px !important;
+    padding: 10px !important;
     justify-content: center !important;
     align-items: center !important;
   }
   
   #cnv {
+    flex-basis: 100% !important;
     max-width: 95vw !important;
     max-height: 55vh !important;
     order: 1;
   }
   
-  /* Container for controls side-by-side */
-  #fire, #joystick {
-    width: 120px !important;
-    height: 120px !important;
-  }
-  
+  /* Controls side-by-side */
   #fire {
     order: 2;
+    width: 130px !important;
+    height: 130px !important;
+    flex-shrink: 0;
   }
   
   #joystick {
     order: 3;
-  }
-  
-  /* Wrapper approach - we need to style gameLayout to allow row for controls */
-  body #gameLayout {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-  }
-  
-  #cnv {
-    flex-basis: 100% !important;
+    width: 130px !important;
+    height: 130px !important;
+    flex-shrink: 0;
   }
 }
 
