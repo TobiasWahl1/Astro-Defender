@@ -247,6 +247,8 @@ canvas {
   box-shadow: 0 0 40px rgba(239, 68, 68, 0.6), 0 0 80px rgba(239, 68, 68, 0.3);
   animation: gameOverPulse 2s ease-in-out infinite;
   max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 @keyframes gameOverPulse {
@@ -351,20 +353,45 @@ canvas {
 /* Responsive adjustments for mobile */
 @media screen and (max-width: 768px) {
   .gameOverContent {
-    padding: 30px 40px;
+    padding: 20px 25px;
+    max-width: 95vw;
+    max-height: 85vh;
   }
   
   .gameOverTitle {
-    font-size: 36px;
+    font-size: 32px;
+    margin: 0 0 20px 0;
+    letter-spacing: 2px;
+  }
+  
+  .scoreDisplay {
+    margin: 20px 0;
+    padding: 15px;
+  }
+  
+  .finalScoreLabel {
+    font-size: 14px;
+    margin-bottom: 8px;
   }
   
   .finalScoreValue {
-    font-size: 42px;
+    font-size: 36px;
+  }
+  
+  .newHighscore {
+    font-size: 16px;
+    margin: 15px 0;
+    padding: 10px;
   }
   
   .restartBtn {
-    padding: 12px 30px;
-    font-size: 18px;
+    padding: 12px 25px;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .btnIcon {
+    font-size: 20px;
   }
   
   #highscoreBox {
