@@ -7,8 +7,13 @@ export class Spaceship {
         this.y = y;
         this.ctx = ctx;
 
+        //Richtung des Schiffs in Radianten
         this.angle = 0;
+
+        //Objekt Größe 
         this.size = Responsive.calculateObjectSize(30); // Responsive ship size
+
+        //Linienfarbe
         this.color = "blue";
 
         this.vx = 0; // Velocity X 
