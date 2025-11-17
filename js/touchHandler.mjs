@@ -8,11 +8,14 @@ export class TouchHandler{
 
         this.canvas.addEventListener("touchstart", this.start.bind(this), {passive: false});
         this.canvas.addEventListener("touchmove", this.move.bind(this), {passive: false});
+        //Normales Ende des Touches.
         this.canvas.addEventListener("touchend", this.end.bind(this), {passive: false});
+        //Touchcancel für unerwartetes Ende (z.B. System Alert, Browser Gesten ...)
         this.canvas.addEventListener("touchcancel", this.end.bind(this), {passive: false});
     }
 
     start(event){
+        // Verhindere Scrollen
         event.preventDefault();
         // Nur einen Touchpunkt verfolgen
         if(this.touchId !== null) return;
